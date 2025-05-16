@@ -1,0 +1,100 @@
+[gd_scene load_steps=9 format=3 uid="uid://dp3oxih0x18ak"]
+
+[ext_resource type="Script" uid="uid://dro0rryvdqkqo" path="res://main_scene.gd" id="1_e6qdk"]
+[ext_resource type="PackedScene" uid="uid://dfrrktl27p2if" path="res://Mesh/Body/feminine_body.tscn" id="1_t5825"]
+[ext_resource type="Material" uid="uid://cw03xbloghn33" path="res://Mesh/Materials/BodyMat.tres" id="2_e6qdk"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1ugfy"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_kmsg5"]
+sky_material = SubResource("ProceduralSkyMaterial_1ugfy")
+
+[sub_resource type="Environment" id="Environment_swd3k"]
+background_mode = 2
+sky = SubResource("Sky_kmsg5")
+tonemap_mode = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_mcy7p"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_gjdbu"]
+
+[node name="MainScene" type="Node3D"]
+script = ExtResource("1_e6qdk")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_swd3k")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.495255, 0.0687223, 0.223154, -0.259849, 0.939511, -0.44744, 0.828976, 0.335553, 0, 0, 0)
+shadow_enabled = true
+
+[node name="FeminineBody" parent="." instance=ExtResource("1_t5825")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.02683, 0, 0)
+mesh = SubResource("BoxMesh_mcy7p")
+surface_material_override/0 = ExtResource("2_e6qdk")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.764066, 0, 0.645138, 0, 1, 0, -0.645138, 0, 0.764066, 2.20702, 0, 0)
+mesh = SubResource("SphereMesh_gjdbu")
+surface_material_override/0 = ExtResource("2_e6qdk")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.780081, 0.177262, -0.600043, 0, 0.959028, 0.283312, 0.625678, -0.221007, 0.748119, -0.697074, 1.2616, 1.58555)
+fov = 41.3
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CumSlider" type="HSlider" parent="CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -362.0
+offset_top = 26.0
+offset_right = -37.0
+offset_bottom = 42.0
+grow_horizontal = 0
+max_value = 1.0
+step = 0.01
+
+[node name="CumSlider2" type="HSlider" parent="CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -362.0
+offset_top = 61.0
+offset_right = -37.0
+offset_bottom = 77.0
+grow_horizontal = 0
+max_value = 1.0
+step = 0.01
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -347.0
+offset_top = 2.0
+offset_right = -287.0
+offset_bottom = 25.0
+grow_horizontal = 0
+text = "Opacity"
+
+[node name="Label2" type="Label" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -347.0
+offset_top = 38.0
+offset_right = -287.0
+offset_bottom = 61.0
+grow_horizontal = 0
+text = "Amount"
+
+[connection signal="value_changed" from="CanvasLayer/CumSlider" to="." method="_on_cum_slider_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/CumSlider2" to="." method="_on_cum_slider_2_value_changed"]
